@@ -40,17 +40,12 @@ void openfile(char *filename){
 void count_lines(){
 	do{
 		rd = fscanf(fileptr, "%*[^\n]%c", &character);
-		printf("read %c\t", character);
-		if(rd == EOF)
+		if(rd == 0 && !feof(fileptr))
+			character = getc(fileptr);
+		// printf("read %c\t", character);
+		if(rd == -1)
 			break;
 		else
 			count++;
-#if 0
-		if(rd >= 1 /* && ((int)character != -1)*/) count++;
-		else break;
-
-		/* could have used feof() to detect end of file but avoided 
-		 * the call stack overhead */
-#endif
 	}while(1);
 }
